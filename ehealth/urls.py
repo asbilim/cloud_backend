@@ -6,7 +6,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('ehealth/',include('listings.urls',)),
     path('jet/', include('jet.urls', 'jet')), 
     path('admin/', admin.site.urls),
