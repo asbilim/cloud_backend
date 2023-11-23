@@ -14,13 +14,31 @@ SECRET_KEY = 'django-insecure-rqvk484(-p9+z_6-^@zh4jola3#$*x$=+pu3!53xi(63euwu5s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+  "CLOUD_NAME" : "dhrexohux", 
+  "API_KEY" : "232777867795216", 
+  "API_SECRET" : "a71Ac7OYmW_162esgquS8AIvRZg"
+}
+
+
+
+
 ALLOWED_HOSTS = ["*"]
+
+
+
+MEDIA_URL = '/cloud-assignment/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    'jet',
+    'jet.dashboard',
     'daphne',
     'corsheaders',
     'djoser',

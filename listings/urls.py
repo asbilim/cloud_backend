@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/',include('chat.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
+    
 ]
