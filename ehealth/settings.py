@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rqvk484(-p9+z_6-^@zh4jola3#$*x$=+pu3!53xi(63euwu5s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -72,9 +72,14 @@ WSGI_APPLICATION = 'ehealth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'cloud',
+    'USER': 'asbilim',
+    'PASSWORD': 'saR16gXqELPZ',
+    'HOST': 'ep-super-snow-812319.us-east-2.aws.neon.tech',
+    'PORT': '5432',
+    'OPTIONS': {'sslmode': 'require'},
+  }
 }
 
 

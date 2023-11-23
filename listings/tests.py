@@ -39,7 +39,7 @@ def create_doctor():
     return doctor
 
 def create_15_doctors():
-    for _ in range(15):
+    for _ in range(10):
         doctor = create_doctor()
         print(f"Created doctor: {doctor.username}")
 
