@@ -15,3 +15,6 @@ class Message(models.Model):
         return f"{self.sender} sent to {self.receiver} {self.content[0:10]}..."
 
     
+    class Meta:
+
+        ordering = ('date','date')

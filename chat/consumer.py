@@ -11,7 +11,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         self.sender = self.scope['url_route']['kwargs']['sender']
         self.receiver = self.scope['url_route']['kwargs']['receiver']
-        
+        self.inverse = self.scope['url_route']['kwargs']['inverse']
         self.room_group_layer = f"{self.scope['url_route']['kwargs']['sender']}_{self.scope['url_route']['kwargs']['receiver']}"
         
         await self.channel_layer.group_add(
@@ -19,6 +19,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
         
+        if self.inverse:
+
+            self.sender,self.receiver = self.receiver,self.sender
 
         await self.accept()
 
@@ -37,16 +40,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
         sender = await sync_to_async(User.objects.get)(username=self.sender)
         receiver = await sync_to_async(User.objects.get)(username=self.receiver)
 
-        # Save the message in the database
+        
+        
         message = await sync_to_async(Message.objects.create)(
             sender=sender,
             receiver=receiver,
             content=message
         )
 
-        print(message)
 
-        # Send the message to the room group
+
+        
         await self.channel_layer.group_send(
             self.room_group_layer,
             {
@@ -59,10 +63,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
         )
 
+
     async def chat_message(self, event):
-        print("sending message")
+       
         message = event['message']
         sender = event['sender']
+
+    
+
 
         # Send the message to the WebSocket
         await self.send(json.dumps({

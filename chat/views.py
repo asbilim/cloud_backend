@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet
 from .models import Message
 from .serializers import MessageSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+from rest_framework.permissions import IsAuthenticated
 class MessageViewet(ModelViewSet):
 
     serializer_class = MessageSerializer
@@ -37,4 +37,11 @@ class MessageViewet(ModelViewSet):
         
         return Response(serializer.data)
         
-    
+class ConversationViewSet(ReadOnlyModelViewSet):
+    serializer_class = MessageSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Message.objects.filter(Q(sender=user) | Q(receiver=user)).distinct()
+

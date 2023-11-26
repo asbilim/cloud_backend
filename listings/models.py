@@ -16,6 +16,13 @@ class People(AbstractUser):
     def __str__(self):
 
         return self.username
+    
+    def save(self, *args, **kwargs):
+
+        self.is_active = True
+        self.set_password(self.password)
+        
+        super(People, self).save(*args, **kwargs)
 
 
 class Doctors(People):
