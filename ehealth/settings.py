@@ -27,6 +27,14 @@ CLOUDINARY_STORAGE = {
 
 ALLOWED_HOSTS = ["*"]
 
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'chat.serializers.CustomUserSerializer',
+        # Include other custom serializers if you have any
+    },
+}
+
+
 
 
 MEDIA_URL = '/cloud-assignment/media/'

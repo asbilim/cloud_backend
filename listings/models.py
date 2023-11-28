@@ -18,10 +18,9 @@ class People(AbstractUser):
         return self.username
     
     def save(self, *args, **kwargs):
+        if self._state.adding or 'password' in self.get_dirty_fields():
+            self.set_password(self.password)
 
-        self.is_active = True
-        self.set_password(self.password)
-        
         super(People, self).save(*args, **kwargs)
 
 

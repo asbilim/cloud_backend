@@ -1,11 +1,12 @@
 from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet
-from .models import Message
-from .serializers import MessageSerializer
+from .models import Message,Medicine,Medicament
+from .serializers import MessageSerializer,CustomUserSerializer,MedicineSerializer,MedicamentSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+
 class MessageViewet(ModelViewSet):
 
     serializer_class = MessageSerializer
@@ -45,3 +46,27 @@ class ConversationViewSet(ReadOnlyModelViewSet):
         user = self.request.user
         return Message.objects.filter(Q(sender=user) | Q(receiver=user)).distinct()
 
+
+class UserViewSet(ReadOnlyModelViewSet):
+    
+    serializer_class = CustomUserSerializer
+    parser_classes = [IsAuthenticated]
+
+
+    def get_queryset(self):
+        User = get_user_model()
+        return User.objects.filter(username=self.request.user.username).distinct()
+    
+
+class MedicineViewset(ModelViewSet):
+
+    serializer_class = MedicineSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Medicine.objects.all()
+
+
+class MedicamentViewset(ModelViewSet):
+
+    serializer_class = MedicamentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    queryset = Medicament.objects.all()
