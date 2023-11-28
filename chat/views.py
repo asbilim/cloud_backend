@@ -21,7 +21,7 @@ class MessageViewet(ModelViewSet):
     def conversation(self, request):
         sender = request.data.get('sender')
         receiver = request.data.get('receiver')
-        print("this are the datas",sender,receiver)
+        
         
         try:
             sender = get_user_model().objects.get(username=sender)
@@ -37,6 +37,9 @@ class MessageViewet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         
         return Response(serializer.data)
+    
+    
+
         
 class ConversationViewSet(ReadOnlyModelViewSet):
     serializer_class = MessageSerializer
@@ -61,8 +64,34 @@ class UserViewSet(ReadOnlyModelViewSet):
 class MedicineViewset(ModelViewSet):
 
     serializer_class = MedicineSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    queryset = Medicine.objects.all()
+    model = Medicine
+    
+    
+    
+    def get_queryset(self):
+
+        return Medicine.objects.all()
+    
+    @action(detail=False, methods=['POST'])
+    def prescriptions(self, request):
+        sender = request.data.get('sender')
+        receiver = request.data.get('receiver')
+        
+        
+        try:
+            sender = get_user_model().objects.get(username=sender)
+            receiver = get_user_model().objects.get(username=receiver)
+        except Exception as e:
+            print(e)
+
+        
+
+        queryset = self.get_queryset().filter(
+            (Q(sender=sender) & Q(receiver=receiver)) | (Q(sender=receiver) & Q(receiver=sender))
+        )
+        serializer = self.get_serializer(queryset, many=True)
+        
+        return Response(serializer.data)
 
 
 class MedicamentViewset(ModelViewSet):
