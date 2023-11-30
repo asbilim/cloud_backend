@@ -23,7 +23,7 @@ CLOUDINARY_STORAGE = {
 }
 
 
-CORS_ORIGIN_WHITELIST = ["*.onrender.com","*","ehelath237.onrender.com","*onrender.com"]
+CORS_ORIGIN_WHITELIST = ["*.onrender.com","*","ehealth237.onrender.com","*onrender.com","*ehealth237.onrender.com"]
 
 
 ALLOWED_HOSTS = ["*"]
@@ -47,6 +47,7 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 INSTALLED_APPS = [
     'jet',
     'jet.dashboard',
+    'django_extensions',
     'daphne',
     'corsheaders',
     'djoser',
@@ -58,7 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'listings',
-    'chat'
+    'chat',
+    
 ]
 
 MIDDLEWARE = [
@@ -98,19 +100,19 @@ WSGI_APPLICATION = 'ehealth.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cloud',
-        'USER': 'asbilim',
-        'PASSWORD': 'saR16gXqELPZ',
-        'HOST': 'ep-super-snow-812319.us-east-2.aws.neon.tech',
-        'PORT': '5432',
-        'OPTIONS': {'sslmode': 'require'},
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'cloud',
+    #     'USER': 'asbilim',
+    #     'PASSWORD': 'saR16gXqELPZ',
+    #     'HOST': 'ep-super-snow-812319.us-east-2.aws.neon.tech',
+    #     'PORT': '5432',
+    #     'OPTIONS': {'sslmode': 'require'},
+    # }
 }
 
 
@@ -208,3 +210,8 @@ SIMPLE_JWT = {
 }
 
 
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
