@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from dirtyfields import DirtyFieldsMixin
 
 
 
 
-
-class People(AbstractUser):
+class People(AbstractUser,DirtyFieldsMixin):
 
     consultation_count = models.IntegerField(default=0)
     description = models.TextField(null=True, blank=True)
