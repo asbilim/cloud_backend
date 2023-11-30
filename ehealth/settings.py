@@ -24,7 +24,7 @@ CLOUDINARY_STORAGE = {
 
 
 CORS_ORIGIN_WHITELIST = ["*.onrender.com","*","ehealth237.onrender.com","*onrender.com","*ehealth237.onrender.com"]
-CSRF_TRUSTED_ORIGINS = ["*.onrender.com","*","ehealth237.onrender.com","*onrender.com","*ehealth237.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://ehealth237.onrender.com"]
 
 
 ALLOWED_HOSTS = ["*"]
