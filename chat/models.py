@@ -2,13 +2,15 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
+
+User = get_user_model()
 class Message(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     delivered = models.BooleanField(default=False)
-    sender = models.ForeignKey(get_user_model(),on_delete=models.CASCADE,related_name="sender")
-    receiver = models.ForeignKey(get_user_model(),on_delete=models.CASCADE)
+    sender = models.ForeignKey(User,on_delete=models.CASCADE,related_name="sender")
+    receiver = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
 
@@ -39,8 +41,8 @@ class Medicine(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     medicaments = models.ManyToManyField(Medicament)
     delivered = models.BooleanField(default=False)
-    sender = models.ForeignKey(get_user_model(),on_delete=models.CASCADE,related_name="prescriptions")
-    receiver = models.ForeignKey(get_user_model(),on_delete=models.CASCADE,related_name="prescript")
+    sender = models.ForeignKey(User,on_delete=models.CASCADE,related_name="prescriptions")
+    receiver = models.ForeignKey(User,on_delete=models.CASCADE,related_name="prescript")
 
     def __str__(self):
 
