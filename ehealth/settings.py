@@ -23,6 +23,7 @@ CLOUDINARY_STORAGE = {
 }
 
 
+CORS_ORIGIN_WHITELIST = ["*.onrender.com","*","ehelath237.onrender.com","*onrender.com"]
 
 
 ALLOWED_HOSTS = ["*"]
